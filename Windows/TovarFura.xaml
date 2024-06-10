@@ -1,0 +1,147 @@
+﻿<Window x:Class="Furnitura4Coursed.Windows.TovarFura"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Furnitura4Coursed.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        MaxHeight="760" MaxWidth="1160"
+        MinHeight="740" MinWidth="1140"
+        Title="Fura" Height="750" Width="1150" Icon="/Resources/icon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="330*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="usersFaio" Width="500" Height="25" Margin="400,10,0,0" VerticalAlignment="Top " FontFamily="Comic Sans MS" FontSize="15"/>
+        <Grid Name="GridUp" Panel.ZIndex="-2" Background="#FFAAC51C"/>
+        <Image Name="Img" Source="/Resources/logo.jpg" HorizontalAlignment="Left"/>
+        <Label Content="Товары" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="#FF2B2925" FontFamily="Arial" Margin="0,0,0,20"/>
+        <Button Name="Update" Content="Обновить" FontSize="15" Height="30" Width="150" FontFamily="Arial" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" Background="#FF2B2925" Click="Update_Click"/>
+        <Button Name="Exit" Content="Выйти" FontSize="15" Height="30" Width="100" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" Background="#FF2B2925" Click="Exit_Click"/>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <WrapPanel x:Name="Wrapik" ItemHeight="30" Orientation="Horizontal" Margin="0,0,0,30">
+                <Label Content="Поиск: " FontFamily="Arial" FontSize="14" VerticalAlignment="Center"/>
+                <TextBox x:Name="SearchFilterTextBox" Height="25" Width="200" FontSize="14" FontFamily="Arial" KeyUp="SearchFilterTextBox_KeyUp"/>
+                <Label Content=" Сортировка: " FontFamily="Arial" FontSize="14" VerticalAlignment="Center"/>
+                <ComboBox x:Name="SortTypeComboBox" Height="25" Width="200" FontSize="14" FontFamily="Arial" ItemsSource="{Binding SortList}" SelectedIndex="0" SelectionChanged="SortFilterComboBox_SelectionChanged"/>
+                <Label Content=" Фильтрация: " FontFamily="Arial" FontSize="14" VerticalAlignment="Center"/>
+                <ComboBox x:Name="DiscountAmountComboBox" Height="25" Width="200" FontSize="14" FontFamily="Arial" ItemsSource="{Binding DiscountAmountList}" SelectedIndex="0" DisplayMemberPath="RoleName" SelectionChanged="DiscountAmountComboBox_SelectionChanged"/>
+            </WrapPanel>
+            <Button Name="AddTovar" Content="Добавить товары" FontSize="15" Height="30" Width="180" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" Background="#FF2B2925" Click="AddTovar_Click"/>
+            <ListView x:Name="TovarListView" ItemsSource="{Binding TovarList}" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="Black" Background="{Binding BackgroundColor}">
+                            <Grid Margin="10" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Name="Img" Source="{Binding Path=TovarPhoto}" Width="100" Height="100"/>
+                                <StackPanel Orientation="Vertical" Grid.Column="1" Margin="5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding TovarName}" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Опиcание: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding TovarDescription}" TextWrapping="Wrap" FontFamily="Arial" FontSize="14" Width="650"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Производитель: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Manufacturer.ManufacturerName}" FontFamily="Arial" FontSize="14"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Цена: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding TovarCost, StringFormat={}{0:N2} руб.}" FontFamily="Arial" FontSize="14" TextDecorations="{Binding CostDeco}" Foreground="{Binding CostColor}"/>
+                                        <TextBlock Text="   " FontFamily="Arial" FontSize="14"/>
+                                        <TextBlock x:Name="CostDesc" Text="{Binding TovarCostDisc, StringFormat={}{0:N2} руб.}" FontFamily="Arial" FontSize="14" Visibility="{Binding CostHid}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Кол-во на складе: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding TovarQuantityInStock, StringFormat={}{0} шт.}" FontFamily="Arial" FontSize="14"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" Margin="5">
+                                    <TextBlock Text="Скидка: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding TovarDiscountAmount, StringFormat={}{0} %}" FontFamily="Arial" FontSize="14"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="3" VerticalAlignment="Center" Margin="5">
+                                    <Button Name="Edit" Content="Редактировать" FontSize="15" Height="30" Width="150" FontFamily="Arial" Foreground="White" Background="#FF2B2925" Click="Edit_Click"/>
+                                    <Button Name="Delete" Content="Удалить" FontSize="15" Height="30" Width="150" FontFamily="Arial" Foreground="White" Background="#FF2B2925" Click="Delete_Click"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="TovarListView2" ItemsSource="{Binding TovarList}" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="Black" Background="{Binding BackgroundColor}">
+                            <Grid Margin="10" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Name="Img" Source="{Binding Path=TovarPhoto}" Width="100" Height="100"/>
+                                <StackPanel Orientation="Vertical" Grid.Column="1" Margin="5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding TovarName}" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Опиcание: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding TovarDescription}" TextWrapping="Wrap" FontFamily="Arial" FontSize="14" Width="650"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Производитель: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Manufacturer.ManufacturerName}" FontFamily="Arial" FontSize="14"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Цена: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding TovarCost, StringFormat={}{0:N2} руб.}" FontFamily="Arial" FontSize="14" TextDecorations="{Binding CostDeco}" Foreground="{Binding CostColor}"/>
+                                        <TextBlock Text="   " FontFamily="Arial" FontSize="14"/>
+                                        <TextBlock x:Name="CostDesc" Text="{Binding TovarCostDisc, StringFormat={}{0:N2} руб.}" FontFamily="Arial" FontSize="14" Visibility="{Binding CostHid}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Кол-во на складе: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding TovarQuantityInStock, StringFormat={}{0} шт.}" FontFamily="Arial" FontSize="14"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" Margin="5">
+                                    <TextBlock Text="Скидка: " FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding TovarDiscountAmount, StringFormat={}{0} %}" FontFamily="Arial" FontSize="14"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Button Name="OrderList" Content="Заказы" FontSize="15" Height="30" Width="200" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White" Background="#FF2B2925" Click="OrderList_Click" Grid.Row="2"/>
+    </Grid>
+</Window>

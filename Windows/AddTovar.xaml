@@ -1,0 +1,58 @@
+﻿<Window x:Class="Furnitura4Coursed.Windows.AddTovar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Furnitura4Coursed.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        MaxHeight="610" MaxWidth="860"
+        MinHeight="590" MinWidth="840"
+        Title="Добавить товары" Height="600" Width="850" Icon="/Resources/icon.ico">
+    <Grid x:Name="AddGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="600"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="105*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="id" Text="ID" FontFamily="Arial" FontSize="16" VerticalAlignment="Center"/>
+        <TextBlock x:Name="id2" Text="{Binding TovarID}" HorizontalAlignment="Left" FontFamily="Arial" FontSize="16" Grid.Column="1"/>
+
+        <TextBlock Text="Наименование" FontFamily="Arial" FontSize="16" Grid.Row="1" VerticalAlignment="Center"/>
+        <TextBox Height="25" Width="300" Text="{Binding TovarName}" HorizontalAlignment="Left" FontFamily="Arial" FontSize="16" Grid.Row="1" Grid.Column="1"/>
+
+        <TextBlock Text="Описание" FontFamily="Arial" FontSize="16" Grid.Row="2" VerticalAlignment="Center"/>
+        <TextBox Height="25" Width="300" Text="{Binding TovarDescription}" HorizontalAlignment="Left" FontFamily="Arial" FontSize="16" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBlock Text="Производитель" FontFamily="Arial" FontSize="16" Grid.Row="3" VerticalAlignment="Center"/>
+        <ComboBox x:Name="ComboManufacturer" Height="25" Width="200" Grid.Column="1" HorizontalAlignment="Left" FontFamily="Arial" DisplayMemberPath="ManufacturerName" Text="{Binding Manufacturer.ManufacturerName}" SelectedItem="{Binding Manufacturer}" Grid.Row="3"/>
+
+        <TextBlock Text="Цена" FontFamily="Arial" FontSize="16" Grid.Row="4" VerticalAlignment="Center"/>
+        <TextBox Height="25" Width="300" Text="{Binding TovarCost}" HorizontalAlignment="Left" FontFamily="Arial" FontSize="16" Grid.Row="4" Grid.Column="1"/>
+
+        <TextBlock Text="Скидка (%)" FontFamily="Arial" FontSize="16" Grid.Row="5" VerticalAlignment="Center"/>
+        <TextBox Height="25" Width="300" Text="{Binding TovarDiscountAmount}" HorizontalAlignment="Left" FontFamily="Arial" FontSize="16" Grid.Row="5" Grid.Column="1"/>
+
+        <TextBlock Text="Изображение" FontFamily="Arial" FontSize="16" Grid.Row="6" VerticalAlignment="Center"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="6" Grid.Column="1" Width="150" Height="150" HorizontalAlignment="Left">
+            <Image Width="150" Height="150" Source="{Binding Path=TovarPhoto}"/>
+        </Border>
+
+        <TextBlock Text="Количество на складе" FontFamily="Arial" FontSize="16" Grid.Row="7" VerticalAlignment="Center"/>
+        <TextBox Height="25" Width="300" Text="{Binding TovarQuantityInStock}" HorizontalAlignment="Left" FontFamily="Arial" FontSize="16" Grid.Row="7" Grid.Column="1"/>
+
+        <Button x:Name="ChangePhoto" Content="Изменить изображение" Grid.Row="10" FontSize="16" Height="30" Width="200" FontFamily="Arial" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White" Background="#FF2B2925" Click="ChangePhoto_Click" Margin="10"/>
+        <Button x:Name="Save" Content="Сохранить" Grid.Row="10" FontSize="16" Height="30" Width="200" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Background="#FF2B2925" Click="Save_Click" Grid.Column="1" Margin="10"/>
+    </Grid>
+</Window>
