@@ -20,7 +20,8 @@ namespace Furnitura4Coursed.BD
         {
         }
 
-        public static Furnitura4coursedEntities _context;
+        private static Furnitura4coursedEntities _context;
+
         public static Furnitura4coursedEntities GetContext()
         {
             if (_context == null)

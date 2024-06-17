@@ -62,7 +62,7 @@
           <Property Name="UserPassword" Type="nvarchar(max)" Nullable="false" />
           <Property Name="UserRole" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Order__OrderStat__2B3F6F97">
+        <Association Name="FK__Order__OrderStat__3E52440B">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -74,7 +74,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tovar__TovarManu__300424B4">
+        <Association Name="FK__Tovar__TovarManu__4316F928">
           <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="1" />
           <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
           <ReferentialConstraint>
@@ -86,7 +86,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User__UserRole__267ABA7A">
+        <Association Name="FK__User__UserRole__398D8EEE">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -105,15 +105,15 @@
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tovar" EntityType="Self.Tovar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Order__OrderStat__2B3F6F97" Association="Self.FK__Order__OrderStat__2B3F6F97">
+          <AssociationSet Name="FK__Order__OrderStat__3E52440B" Association="Self.FK__Order__OrderStat__3E52440B">
             <End Role="Status" EntitySet="Status" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tovar__TovarManu__300424B4" Association="Self.FK__Tovar__TovarManu__300424B4">
+          <AssociationSet Name="FK__Tovar__TovarManu__4316F928" Association="Self.FK__Tovar__TovarManu__4316F928">
             <End Role="Manufacturer" EntitySet="Manufacturer" />
             <End Role="Tovar" EntitySet="Tovar" />
           </AssociationSet>
-          <AssociationSet Name="FK__User__UserRole__267ABA7A" Association="Self.FK__User__UserRole__267ABA7A">
+          <AssociationSet Name="FK__User__UserRole__398D8EEE" Association="Self.FK__User__UserRole__398D8EEE">
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
@@ -129,7 +129,7 @@
           </Key>
           <Property Name="ManufacturerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ManufacturerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tovar" Relationship="Self.FK__Tovar__TovarManu__300424B4" FromRole="Manufacturer" ToRole="Tovar" />
+          <NavigationProperty Name="Tovar" Relationship="Self.FK__Tovar__TovarManu__4316F928" FromRole="Manufacturer" ToRole="Tovar" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -141,7 +141,7 @@
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrderDeliveryDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrderPickupPoint" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Status" Relationship="Self.FK__Order__OrderStat__2B3F6F97" FromRole="Order" ToRole="Status" />
+          <NavigationProperty Name="Status" Relationship="Self.FK__Order__OrderStat__3E52440B" FromRole="Order" ToRole="Status" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -149,7 +149,7 @@
           </Key>
           <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK__User__UserRole__267ABA7A" FromRole="Role" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__User__UserRole__398D8EEE" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -157,7 +157,7 @@
           </Key>
           <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="Self.FK__Order__OrderStat__2B3F6F97" FromRole="Status" ToRole="Order" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Order__OrderStat__3E52440B" FromRole="Status" ToRole="Order" />
         </EntityType>
         <EntityType Name="Tovar">
           <Key>
@@ -171,7 +171,7 @@
           <Property Name="TovarCost" Type="Decimal" Precision="19" Scale="2" Nullable="false" />
           <Property Name="TovarPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TovarDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Manufacturer" Relationship="Self.FK__Tovar__TovarManu__300424B4" FromRole="Tovar" ToRole="Manufacturer" />
+          <NavigationProperty Name="Manufacturer" Relationship="Self.FK__Tovar__TovarManu__4316F928" FromRole="Tovar" ToRole="Manufacturer" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -184,9 +184,9 @@
           <Property Name="UserLogin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserRole" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__User__UserRole__267ABA7A" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User__UserRole__398D8EEE" FromRole="User" ToRole="Role" />
         </EntityType>
-        <Association Name="FK__Tovar__TovarManu__300424B4">
+        <Association Name="FK__Tovar__TovarManu__4316F928">
           <End Role="Manufacturer" Type="Self.Manufacturer" Multiplicity="1" />
           <End Role="Tovar" Type="Self.Tovar" Multiplicity="*" />
           <ReferentialConstraint>
@@ -198,7 +198,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__OrderStat__2B3F6F97">
+        <Association Name="FK__Order__OrderStat__3E52440B">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -210,7 +210,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User__UserRole__267ABA7A">
+        <Association Name="FK__User__UserRole__398D8EEE">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -229,15 +229,15 @@
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="Tovar" EntityType="Self.Tovar" />
           <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK__Tovar__TovarManu__300424B4" Association="Self.FK__Tovar__TovarManu__300424B4">
+          <AssociationSet Name="FK__Tovar__TovarManu__4316F928" Association="Self.FK__Tovar__TovarManu__4316F928">
             <End Role="Manufacturer" EntitySet="Manufacturer" />
             <End Role="Tovar" EntitySet="Tovar" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__OrderStat__2B3F6F97" Association="Self.FK__Order__OrderStat__2B3F6F97">
+          <AssociationSet Name="FK__Order__OrderStat__3E52440B" Association="Self.FK__Order__OrderStat__3E52440B">
             <End Role="Status" EntitySet="Status" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__User__UserRole__267ABA7A" Association="Self.FK__User__UserRole__267ABA7A">
+          <AssociationSet Name="FK__User__UserRole__398D8EEE" Association="Self.FK__User__UserRole__398D8EEE">
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
