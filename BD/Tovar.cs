@@ -24,55 +24,5 @@ namespace Furnitura4Coursed.BD
         public string TovarDescription { get; set; }
     
         public virtual Manufacturer Manufacturer { get; set; }
-
-        public string BackgroundColor
-        {
-            get
-            {
-                if (TovarDiscountAmount > 25.00m)
-                    return "#23E1EF";
-                return "#fff";
-            }
-        }
-
-        public decimal TovarCostDisc
-        {
-            get
-            {
-                var TovarCostD = TovarCost * (100 - TovarDiscountAmount) / 100;
-                return TovarCostD;
-            }
-        }
-
-        public string CostDeco
-        {
-            get
-            {
-                if (TovarDiscountAmount == 0)
-                    return "None";
-                return "Strikethrough";
-
-            }
-        }
-
-        public string CostHid
-        {
-            get
-            {
-                if (TovarDiscountAmount == 0)
-                    return "Hidden";
-                return "Visible";
-            }
-        }
-
-        public string CostColor
-        {
-            get
-            {
-                if (TovarDiscountAmount == 0)
-                    return "Black";
-                return "Red";
-            }
-        }
     }
 }
